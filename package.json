@@ -1,0 +1,22 @@
+{
+  "name": "pagepress",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local, permission-based Google Drive PDF page capture.",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test --test-concurrency=1 test/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "@fontsource/manrope": "5.3.0",
+    "express": "5.2.1",
+    "lucide": "1.53.0",
+    "pdf-lib": "1.17.1",
+    "playwright": "1.64.0"
+  }
+}

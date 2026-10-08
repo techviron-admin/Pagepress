@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Field Notes.pdf - Google Drive</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #e7ebe8; font: 14px sans-serif; }
+    header { height: 60px; background: white; padding: 16px 24px; display: flex; gap: 28px; align-items: center; }
+    input { width: 90px; padding: 6px; }
+    main { overflow: auto; height: calc(100vh - 60px); }
+    article { width: 650px; height: 920px; margin: 24px auto; background: white; position: relative; }
+    article img { width: 100%; height: 100%; display: block; }
+    h2 { position: absolute; width: 1px; height: 1px; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <header>Field Notes.pdf <label>Zoom <input aria-label="Page zoom control" role="combobox" value="100%"></label></header>
+  <main role="main">
+    <article data-pagepress-page="1"><h2>Page 1 of 3</h2></article>
+    <article data-pagepress-page="2"><h2>Page 2 of 3</h2></article>
+    <article data-pagepress-page="3"><h2>Page 3 of 3</h2></article>
+  </main>
+  <script>
+    let resolution = 1600;
+    function render(container) {
+      if (container.querySelector('img')?.naturalWidth === resolution) return;
+      const number = Number(container.dataset.pagepressPage);
+      const canvas = document.createElement('canvas');
+      canvas.width = resolution;
+      canvas.height = Math.round(resolution * 1.415);
+      const context = canvas.getContext('2d');
+      context.scale(resolution / 800, resolution / 800);
+      context.fillStyle = '#ffffff'; context.fillRect(0, 0, 800, 1132);
+      context.fillStyle = '#126852'; context.fillRect(62, 62, 40, 8);
+      context.font = '16px sans-serif'; context.fillText('FIELD NOTES   /   2026', 118, 74);
+      context.fillStyle = '#202823'; context.font = '68px Georgia';
+      const titles = ['A little clarity.', 'Room to think.', 'The next chapter.'];
+      context.fillText(titles[number - 1], 62, 240);
+      context.font = '23px sans-serif'; context.fillStyle = '#6b7470';
+      context.fillText(['Collected ideas. A fresh perspective.', 'A plan is the beginning of a conversation.', 'Good work is built one page at a time.'][number - 1], 62, 290);
+      context.fillStyle = '#e9f2ed'; context.fillRect(62, 360, 676, 360);
+      context.fillStyle = '#bdd9c8'; context.fillRect(92, 406, 150, 264);
+      context.fillStyle = '#3c977a'; context.fillRect(266, 454 - number * 18, 150, 216 + number * 18);
+      context.fillStyle = '#195c49'; context.fillRect(440, 524 - number * 40, 150, 146 + number * 40);
+      context.fillStyle = '#d6e39c'; context.fillRect(614, 386 + number * 25, 94, 284 - number * 25);
+      context.fillStyle = '#293b32'; context.font = 'bold 26px sans-serif';
+      context.fillText(['01   Observations', '02   Working ideas', '03   A new direction'][number - 1], 62, 786);
+      context.font = '19px sans-serif'; context.fillStyle = '#64716a';
+      ['Look closely. Keep what matters.', 'Leave enough space for the unexpected.', 'Bring the useful pieces together.'].forEach((line, index) => context.fillText(line, 62, 832 + index * 32));
+      context.strokeStyle = '#dce4de'; context.beginPath(); context.moveTo(62, 1015); context.lineTo(738, 1015); context.stroke();
+      context.font = '15px sans-serif'; context.fillText('PAGEPRESS / SAMPLE DOCUMENT', 62, 1054);
+      context.fillText(`0${number} / 03`, 675, 1054);
+      container.querySelector('img')?.remove();
+      const image = document.createElement('img'); image.alt = `Sample page ${number}`;
+      image.src = canvas.toDataURL('image/png'); container.append(image);
+    }
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) render(entry.target); }), { root: document.querySelector('main'), rootMargin: '200px' });
+    document.querySelectorAll('article').forEach(container => observer.observe(container));
+    document.querySelector('input').addEventListener('keydown', event => {
+      if (event.key !== 'Enter') return;
+      resolution = event.target.value === '200%' ? 3200 : 1600;
+      document.querySelectorAll('article img').forEach(image => render(image.parentElement));
+    });
+  </script>
+</body>
+</html>

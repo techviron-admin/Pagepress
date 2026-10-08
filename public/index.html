@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8f6">
+  <title>Pagepress | Capture workspace</title>
+  <link rel="icon" href="/assets/sample-cover.png" type="image/png">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/vendor/icons/lucide.min.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to workspace</a>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="Pagepress home"><span class="brand-mark"><i data-lucide="scan-line"></i></span>pagepress<span class="brand-period">.</span></a>
+      <div class="workspace-label">PERSONAL WORKSPACE</div>
+      <nav aria-label="Workspace">
+        <button class="nav-item active" data-view="workspace" aria-current="page"><i data-lucide="layers-2"></i><span>Captures</span><span class="nav-count" id="all-count">0</span></button>
+        <button class="nav-item" data-view="completed"><i data-lucide="folder-check"></i><span>Completed</span><span class="nav-count" id="done-count">0</span></button>
+      </nav>
+      <div class="sidebar-bottom"><i data-lucide="hard-drive"></i><div><strong>Local workspace</strong><span id="local-address">127.0.0.1</span></div><span class="status-dot" id="connection-dot"></span></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <div class="breadcrumb">Workspace <i data-lucide="chevron-right"></i><span id="breadcrumb-view">Captures</span></div>
+        <div class="browser-controls"><span class="browser-state" id="browser-state"><span class="small-dot"></span>Browser closed</span><button id="open-browser" class="button button-small button-outline"><i data-lucide="panels-top-left"></i><span>Sign in to Google</span></button><button id="close-browser" class="icon-button" title="Close capture browser" aria-label="Close capture browser" hidden><i data-lucide="power"></i></button></div>
+      </header>
+      <main id="main">
+        <div class="page-heading"><div><div class="eyebrow">DOCUMENT STUDIO</div><h1 id="view-title">Captures</h1></div><div class="session-badge"><span class="status-dot"></span><span id="service-status">Local session</span></div></div>
+        <div class="signin-notice" id="signin-notice" role="status" hidden><i data-lucide="user-round-key"></i><p><strong>Waiting for Google sign-in</strong>Complete sign-in in Chrome, then close that window. Capture resumes automatically. Keep this Pagepress tab open.</p></div>
+        <div class="workspace-grid">
+          <div class="work-column">
+            <section class="composer" id="composer" aria-labelledby="new-title">
+              <div class="section-heading"><h2 id="new-title">New capture</h2><span class="format-tag"><i data-lucide="file-type-2"></i>PDF</span></div>
+              <form id="capture-form">
+                <label for="drive-links">Google Drive file links</label>
+                <div class="link-field"><i data-lucide="link-2"></i><textarea id="drive-links" name="links" rows="3" placeholder="https://drive.google.com/file/d/.../view" spellcheck="false" autocomplete="off" maxlength="10000" aria-describedby="form-error"></textarea><button type="button" id="clear-links" class="icon-button" title="Clear links" aria-label="Clear links"><i data-lucide="x"></i></button></div>
+                <fieldset class="quality-field"><legend>Resolution</legend><div class="segmented"><label><input type="radio" name="quality" value="standard" checked><span><i data-lucide="scan"></i>Standard <small>1600</small></span></label><label><input type="radio" name="quality" value="high"><span><i data-lucide="scan-line"></i>High <small>3200</small></span></label></div></fieldset>
+                <label class="permission"><input type="checkbox" id="permission"><span>I own these files or have permission to save copies.</span></label>
+                <label class="permission auto-download-option"><input type="checkbox" id="auto-download" checked><span>Download automatically when ready</span></label>
+                <p class="inline-error" id="form-error" role="alert" hidden></p>
+                <div class="form-actions"><button class="button button-primary" id="capture-button" type="submit" disabled><i data-lucide="scan-line"></i><span>Capture PDF</span><i data-lucide="arrow-up-right"></i></button><button class="button button-text" type="button" id="sample-button"><i data-lucide="play"></i>Try sample</button></div>
+              </form>
+            </section>
+            <section class="library" aria-labelledby="library-title">
+              <div class="section-heading"><div class="heading-with-count"><h2 id="library-title">Recent captures</h2><span id="library-count">0</span></div><div class="filter-field"><i data-lucide="search"></i><input type="search" id="search" placeholder="Find a capture" aria-label="Find a capture"></div></div>
+              <p id="queue-summary" class="queue-summary" role="status" hidden></p>
+              <div id="jobs" class="job-list" aria-live="polite"></div>
+              <div id="empty-state" class="empty-state"><div class="empty-stack"><i data-lucide="files"></i></div><h3>No captures yet</h3><span id="empty-detail">Your library is empty.</span></div>
+              <div class="library-footer"><span id="library-summary">0 PDFs saved</span><span class="local-label"><i data-lucide="lock-keyhole"></i>On this computer</span></div>
+            </section>
+          </div>
+          <aside class="preview-column" aria-label="Document preview">
+            <div class="section-heading"><h2>Page preview</h2><button class="icon-button" id="expand-preview" title="Expand preview" aria-label="Expand preview"><i data-lucide="expand"></i></button></div>
+            <div class="preview-stage"><div class="paper-shadow"><img id="preview-image" src="/assets/sample-cover.png" alt="Sample document first page" width="1600" height="2264"></div><span class="preview-stamp" id="preview-stamp">SAMPLE DOCUMENT</span><div class="preview-empty" id="preview-empty" hidden><i data-lucide="file-clock"></i><span>Awaiting first page</span></div></div>
+            <div class="preview-details"><span class="preview-kind" id="preview-kind">FIELD NOTES / SAMPLE</span><h3 id="preview-title">A little clarity.</h3><div id="preview-meta" class="preview-meta"><span>3 pages</span><span>PDF</span></div><div id="preview-progress"></div><p id="preview-message" class="preview-message" hidden></p><a class="button button-primary download-main" id="download-main" hidden><i data-lucide="download"></i>Download PDF</a></div>
+            <div class="workspace-stat"><i data-lucide="archive"></i><div><strong id="total-pages">0</strong><span>pages preserved</span></div><span class="stat-size" id="total-size">0 KB</span></div>
+          </aside>
+        </div>
+        <footer class="page-footer"><span>PAGEPRESS</span><span id="footer-status">All systems local</span><span>01 / WORKSPACE</span></footer>
+      </main>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <dialog id="delete-dialog"><form method="dialog"><div class="dialog-icon"><i data-lucide="trash-2"></i></div><h2>Delete this capture?</h2><p id="delete-title"></p><p class="muted">The saved PDF and preview will be removed from this computer.</p><div class="dialog-actions"><button class="button button-outline" value="cancel">Keep capture</button><button class="button button-danger" id="confirm-delete" type="button"><i data-lucide="trash-2"></i>Delete</button></div></form></dialog>
+  <dialog id="preview-dialog" class="preview-dialog"><button class="icon-button" id="close-preview" aria-label="Close preview" title="Close preview"><i data-lucide="x"></i></button><img id="large-preview" alt="Captured document page"></dialog>
+</body>
+</html>
